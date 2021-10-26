@@ -45,34 +45,34 @@ public class TodoApplication implements CommandLineRunner{
 		user.setPassword("must be hashed");
 		user.setUsername("EY_TEST_USER1");
 
-		Todo todo = new Todo();
-		todo.setTitle("Todo Item");
-		todo.setDescription("Complete Assignment");
-		todo.setLastUpdatedTime(LocalDateTime.now());
-
-
 		Todo todo1 = new Todo();
-		todo1.setTitle("Todo Item 1");
-		todo1.setDescription("Complete Assignment 2");
+		todo1.setTitle("Todo Item");
+		todo1.setDescription("Meet Laura");
 		todo1.setLastUpdatedTime(LocalDateTime.now());
 
+
 		Todo todo2 = new Todo();
-		todo2.setTitle("Todo Item 1");
-		todo2.setDescription("Complete Assignment 2");
+		todo2.setTitle("Todo Item");
+		todo2.setDescription("Design a Prototype");
 		todo2.setLastUpdatedTime(LocalDateTime.now());
 
 		Todo todo3 = new Todo();
-		todo3.setTitle("Todo Item 1");
-		todo3.setDescription("Complete Assignment 2");
+		todo3.setTitle("Todo Item");
+		todo3.setDescription("Schedule Meeting with Stakeholder");
 		todo3.setLastUpdatedTime(LocalDateTime.now());
 
-		todoRepository.save(todo);
+		Todo todo4 = new Todo();
+		todo4.setTitle("Todo Item");
+		todo4.setDescription("Finish Task Before deadline");
+		todo4.setLastUpdatedTime(LocalDateTime.now());
+
 		todoRepository.save(todo1);
 		todoRepository.save(todo2);
 		todoRepository.save(todo3);
+		todoRepository.save(todo4);
 
 
-		user.setTodoList(Arrays.asList(todo,todo1,todo2,todo3));
+		user.setTodoList(Arrays.asList(todo1,todo2,todo3,todo4));
 
 		userRepository.save(user);
 	}
