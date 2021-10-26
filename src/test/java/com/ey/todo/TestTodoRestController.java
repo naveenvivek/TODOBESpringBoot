@@ -1,6 +1,7 @@
 package com.ey.todo;
 
 import com.ey.todo.controller.TodoController;
+import com.ey.todo.domain.Todo;
 import com.ey.todo.domain.User;
 import com.ey.todo.model.AddToDoRequest;
 import com.ey.todo.persistence.TodoRepository;
@@ -9,7 +10,6 @@ import com.ey.todo.service.TodoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -48,7 +48,6 @@ public class TestTodoRestController {
         user.setId(1l);
 
         Mockito.when(todoService.getTaskListByUserId(1l)).thenReturn(user);
-
 
         mvc.perform( MockMvcRequestBuilders
                         .get("/todo/1")
@@ -114,6 +113,65 @@ public class TestTodoRestController {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void removeTodo() throws Exception{
+
+        Mockito.when(todoService.removeTodo(Mockito.anyLong(), Mockito.anyLong())).thenReturn(true);
+
+        mvc.perform( MockMvcRequestBuilders
+                        .delete("/todo/1/deleteTodo/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+
+    @Test
+    public void removeTodoNotFound() throws Exception{
+
+        Mockito.when(todoService.removeTodo(Mockito.anyLong(), Mockito.anyLong())).thenReturn(false);
+
+        mvc.perform( MockMvcRequestBuilders
+                        .delete("/todo/1/deleteTodo/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+
+    @Test
+    public void toggleTodoCompleted() throws Exception{
+
+        AddToDoRequest addToDoRequest = new AddToDoRequest();
+
+        Mockito.when(todoService.toggleTodoCompleted(Mockito.anyLong(), Mockito.any())).thenReturn(new Todo());
+
+        mvc.perform( MockMvcRequestBuilders
+                        .put("/todo/updateTodo/1")
+                        .content(asJsonString(addToDoRequest))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void toggleTodoCompletedNotFound() throws Exception{
+
+        AddToDoRequest addToDoRequest = new AddToDoRequest();
+
+        Mockito.when(todoService.toggleTodoCompleted(Mockito.anyLong(), Mockito.any())).thenReturn(null);
+
+        mvc.perform( MockMvcRequestBuilders
+                        .put("/todo/updateTodo/1")
+                        .content(asJsonString(addToDoRequest))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
