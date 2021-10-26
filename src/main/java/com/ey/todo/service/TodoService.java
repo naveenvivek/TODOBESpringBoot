@@ -101,6 +101,7 @@ public class TodoService {
         try {
             Todo todo = todoRepository.findById(todoId).orElseThrow(() -> new NoSuchElementException());
             todo.setCompleted(!todo.getCompleted());
+            todo.setLastUpdatedTime(LocalDateTime.now());
             todoRepository.save(todo);
             return todo;
         }
