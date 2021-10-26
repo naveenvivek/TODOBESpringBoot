@@ -70,9 +70,9 @@ View TODOTask with Description and Date.
 To deploy this project :
 
 First Approach :
-i) Download the final war attached.
+i) Download the final war attached. https://github.com/naveenvivek/TODOBESpringBoot/blob/master/screenshot/todo-1.0.jar
 ii) Have java 13 LTS version in classpath
-iii) From command prompt execute "java -jar todo-0.0.1-SNAPSHOT.war"
+iii) From command prompt execute "java -jar todo-1.0.jar"
 iv) Application would start up
 v) Once started application will run in port 8080 
 vi) Below Url http://localhost:8080/swagger-ui.html
@@ -80,7 +80,7 @@ vi) Below Url http://localhost:8080/swagger-ui.html
 Second Approach to run fropm Intellij/Eclipse:
 i) Checkout project from github https://github.com/naveenvivek/TODOBESpringBoot
 ii) Do maven clean, test, package
-iii) Run to build succesful and target war would be generated.
+iii) Run to build successful and target war would be generated.
 iv) Run TodoApplication.java, as Run as java application.
 v) Application would be started to run in port 8080
 vi) Below Url http://localhost:8080/swagger-ui.html
